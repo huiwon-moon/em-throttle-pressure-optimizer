@@ -29,6 +29,9 @@
 ├── fig/                    # (비공개) TP, MST, Recommend Simulation 평가 시각화
 ├── results/                # (비공개) 추론 결과 CSV
 ├── src/
+│   └── data_concat.py      # 데이터 병합
+│   └── data_imputation.py  # 결측치 처리 (ffill & linear interpolation)
+│   └── data_preprocess.py  # 승온승압 구간 추출 & Trip 조건 케이스 제거
 │   └── data_split.py       # HOT/WARM 기동 유형 분리 & 훈련/테스트 데이터 분할
 │   └── evaluation.py       # 성능 평가 코드
 │   └── features.py         # feature engineering
