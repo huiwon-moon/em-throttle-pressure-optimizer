@@ -351,7 +351,16 @@ def plot_and_save_all_trajectories_compare_optimal_line(
         actual_sum = sum(df[col])
 
         # 2) Simulation 총합
-        sim_sum = sum(simulated_df[col])
+        sim_end_time = simulated_df['time'].iloc[-1]
+        df_trimmed = df[df['time'] <= sim_end_time].copy()
+        sim_aligned = pd.merge(df_trimmed[['time']], simulated_df[['time', col]], on='time', how='left')
+        sim_filled_values = pd.Series(
+                                np.where(sim_aligned[col].isna(), df_trimmed[col].values, sim_aligned[col].values),
+                                index=sim_aligned.index
+                            )
+        sim_sum = sim_filled_values.sum()
+        
+        # sim_sum = sum(simulated_df[col])
 
         # 3) Optimal 총합
         opt_end_min = None
